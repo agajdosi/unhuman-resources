@@ -21,8 +21,16 @@ S hnutím ANO do vlady nepujdu, rek Hamacek.
 Hnuti ANO 2011 je nejlepsi, tvrdi stale dokola Babiš.
 Takhle ne! Hnutí ANO se distancuje od ČSSD.
 Kašlem na to, shodlo se Hnutí ANO.
+Bez Andreje Babiše to nepůjde.
+Bez Babiše nebude mít ano peníze.
+Vidíme přicházet Andreje Babiše.
+Vidíme přicházet Babiše, jak přilétá na své řepkoptéře.
+Hodně se teď mluví o Andreji Babišovi.
+Dejte pokoj a víc dotací Babišovi!
+Dejte Babišovi pokoj a klidný spánek!
 """
 
+# 1.PAD kdo co, mlady Babis
 babis = [
     "náš vážený pan majitel",
     "náš vážený pan zaměstnavatel",
@@ -31,12 +39,31 @@ babis = [
     "bývalý spolupracovník STB"
 ]
 
+# 7.PAD s kyc cim, s mladym Babisem
 babisem = [
     "našim váženým panem majitelem",
     "našim váženým panem zaměstnavatelem",
     "velectěným majitelem těchto novin",
     "úctyhodným majitelem tohoto serveru",
     "bývalým spolupracovníkem STB"
+]
+
+# 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
+babise = [
+    "našeho váženého pana majitele",
+    "našeho váženého pana zaměstnavatele",
+    "velectěného majitele těchto novin",
+    "svévolného majitele tohoto serveru",
+    "bývalého spolupracovníka STB"
+]
+
+# 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
+babisovi = [
+    "panu majiteli naší redakce",
+    "panu zaměstnavateli mne a mých kolegů",
+    "majiteli těchto novin",
+    "majiteli tohoto serveru",
+    "ex-spolupracovníkovi STB"
 ]
 
 hnutiANO = [
@@ -48,6 +75,7 @@ hnutiANO = [
 
 def replaceBabis(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?:\.|\,|\?|\!| )?)", page)
+    print(parts)
     page = ""
     for part in parts:
 # 1.PAD: BABIS
@@ -64,7 +92,29 @@ def replaceBabis(page):
         elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )", part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + "," + part[-1:]
-# 6.PAD: S BABISEM
+# 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého muže
+        # Babis na konci souveti a vety
+        elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)[\.\?\!\,])", part):
+            x = random.randint(0,len(babise)-1)
+            part = part[:-1] + ", " + babise[x] + part[-1]
+        # Babis uprostred vety
+        elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )", part):
+            x = random.randint(0,len(babise)-1)
+            part = part[:-1] + ", " + babise[x] + "," + part[-1:]
+# 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
+        elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)[\.\?\!\,])", part):
+            x = random.randint(0,len(babisovi)-1)
+            part = part[:-1] + ", " + babisovi[x] + part[-1]
+        # Babis uprostred vety
+        elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )", part):
+            x = random.randint(0,len(babisovi)-1)
+            part = part[:-1] + ", " + babisovi[x] + "," + part[-1:]
+# 7.PAD s kyc cim, s mladym babisem
+        # Babis na konci souveti a vety
+        elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)[\.\?\!\,])", part):
+            x = random.randint(0,len(babisem)-1)
+            part = part[:-1] + ", " + babis[x] + part[-1]
+        # Babis uprostred vety
         elif re.match(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )", part):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
