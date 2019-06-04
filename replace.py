@@ -48,10 +48,9 @@ hnutiANO = [
 
 def replaceBabis(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?:\.|\,|\?|\!| )?)", page)
-    print(parts)
     page = ""
     for part in parts:
-        
+# 1.PAD: BABIS
         # Babis v zacatku souveti
         if re.match(r"((?:\. |\? |\! |\n)(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš))", part):
             #part = part[0:2] + prepend[x].capitalize() + ", " + part[2:]
@@ -65,6 +64,7 @@ def replaceBabis(page):
         elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )", part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + "," + part[-1:]
+# 6.PAD: S BABISEM
         elif re.match(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )", part):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
