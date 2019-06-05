@@ -1,8 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import requests
-
-import replace, get
+import get
 
 newAddress = "ydnes.cz:8080"
 originalAddress = "idnes.cz"
@@ -10,14 +9,8 @@ originalAddress = "idnes.cz"
 class AllHandler(tornado.web.RequestHandler):
     def get(self):
         url = "http://" + originalAddress + self.request.uri
-        page = get.getPage(url)
-
-        page = replace.replaceLinks(page, originalAddress, newAddress)
-        page = replace.replaceBabis(page)
-        page = replace.replaceANO(page)
-
+        page = get.getPage(url, originalAddress, newAddress)
         self.write(page)
-
 
 def make_app():
     return tornado.web.Application([

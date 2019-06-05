@@ -75,7 +75,6 @@ hnutiANO = [
 
 def replaceBabis(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?:\.|\,|\?|\!| )?)", page)
-    print(parts)
     page = ""
     for part in parts:
 # 1.PAD: BABIS
@@ -145,8 +144,15 @@ def replaceLinks(html, originalAddress, newAddress):
             link["href"] = link["href"].replace(originalAddress, newAddress)
             link["href"] = link["href"].replace("https", "http")
         except:
-            print(link)
+            pass
+            #print(link)
     return str(soup)
+
+def replaceLink(link, originalAddress, newAddress):
+    link = link.replace("www." + originalAddress, newAddress)
+    link = link.replace(originalAddress, newAddress)
+    link = link.replace("https", "http")
+    return link
 
 if __name__ == "__main__":
     text = replaceBabis(text)
