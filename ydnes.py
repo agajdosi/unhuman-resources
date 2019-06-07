@@ -2,14 +2,23 @@ import tornado.ioloop
 import tornado.web
 import requests
 import get
+import tldextract
 
-newAddress = "ydnes.cz:8080"
-originalAddress = "idnes.cz"
+#newDomain = "ydnes.cz"
+newDomain = "localhost:8080"
+origDomain = "idnes.cz"
 
 class AllHandler(tornado.web.RequestHandler):
     def get(self):
-        url = "http://" + originalAddress + self.request.uri
-        page = get.getPage(url, originalAddress, newAddress)
+        reqURI = self.request.full_url()
+        uri = tldextract.extract(reqURI)
+
+        if uri.subdomain != "":
+            url = "http://" + uri.subdomain + "." + origDomain + self.request.path
+        else:
+            url = "http://" + origDomain + self.request.path
+
+        page = get.getPage(url, origDomain, newDomain)
         self.write(page)
 
 def make_app():

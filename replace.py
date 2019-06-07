@@ -1,5 +1,4 @@
 import re, random
-from bs4 import BeautifulSoup
 
 text = """
 Ironie. Babiš vytáhl do boje proti dvoji kvalite potravin.
@@ -136,22 +135,12 @@ def replaceANO(page):
         page = page + part
     return page
 
-def replaceLinks(html, originalAddress, newAddress):
-    soup = BeautifulSoup(html, 'html.parser')
-    for link in soup.find_all("a"):
-        try:
-            link["href"] = link["href"].replace("www." + originalAddress, newAddress)
-            link["href"] = link["href"].replace(originalAddress, newAddress)
-            link["href"] = link["href"].replace("https", "http")
-        except:
-            pass
-            #print(link)
-    return str(soup)
-
 def replaceLink(link, originalAddress, newAddress):
     link = link.replace("www." + originalAddress, newAddress)
     link = link.replace(originalAddress, newAddress)
     link = link.replace("https", "http")
+    if link.startswith("//"):
+        link = link.replace("//", "http://")
     return link
 
 if __name__ == "__main__":
