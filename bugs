@@ -1,0 +1,7 @@
+<a><span>ahoj</span></a>
+
+tak z tohoto link.string == "ahoj"
+a ne link.string == "<span>ahoj</span>"
+
+na to je treba jit pres:
+link.contents[0].string

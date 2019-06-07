@@ -10,14 +10,16 @@ def downloadPage(url):
 
 def getPage(url, originalAddress, newAddress):
     page = downloadPage(url)
+    page = replaceBabis(page)
+    page = replaceANO(page)
 
     soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
         if tag.name == "a":
-            tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+            if tag.has_attr("href"):
+                tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
 
+
+#taeyyng
     page = str(soup)
-    page = replaceBabis(page)
-    page = replaceANO(page)
-
     return page
