@@ -1,0 +1,1 @@
+python3 main.py -o idnes.cz -n localhost:8080
