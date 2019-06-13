@@ -26,6 +26,7 @@ class AllHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
+        (r'/hackimages/(.*)', tornado.web.StaticFileHandler, {'path': '/hackimages/'}),
         (r".*", AllHandler),
     ],
     debug = True
