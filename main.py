@@ -14,7 +14,10 @@ origDomain = "idnes.cz"
 class AllHandler(tornado.web.RequestHandler):
     def get(self):
         headers = {"User-Agent" : self.request.headers.get("User-Agent")}
-        print(headers)
+
+        if args.debug == True:
+            print("access from:", self.request, headers)
+        
         reqURI = self.request.full_url()
         uri = tldextract.extract(reqURI)
 
@@ -39,6 +42,7 @@ if __name__ == "__main__":
     parser.add_argument("--port", "-p", help="defines which port will be used by webserver", type=int, default=8080)
     parser.add_argument("--original", "-o", help="original address of server from which pages will be downloaded", type=str, default="idnes.cz")
     parser.add_argument("--new", "-n", help="address of new fake edited server", type=str, default="localhost:8080")
+    parser.add_argument("--debug", "-d", help="debug mode - print out who access the server", type=bool, default=False)
     args = parser.parse_args()
     
     origDomain = args.original
