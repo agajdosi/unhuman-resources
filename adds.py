@@ -15,5 +15,8 @@ def addAdds(page):
     div = add.replace("the-image-data", image)
     splitted = page.split("</body>", 1)
 
+    if len(splitted) == 1:
+        return page
+
     page = splitted[0] + div + "</body>" + splitted[1]
     return page
