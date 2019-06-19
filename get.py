@@ -3,14 +3,14 @@ from bs4 import BeautifulSoup
 from replace import *
 from adds import *
 
-def downloadPage(url):
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+def downloadPage(url, headers):
     r = requests.get(url, headers=headers)
 
     return r.text
 
-def getPage(url, originalAddress, newAddress):
-    page = downloadPage(url)
+def getPage(url, originalAddress, newAddress, headers):
+    page = downloadPage(url, headers)
+    
     page = replaceBabis(page)
     page = replaceANO(page)
     page = addAdds(page)

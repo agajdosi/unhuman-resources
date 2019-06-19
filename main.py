@@ -13,6 +13,8 @@ origDomain = "idnes.cz"
 
 class AllHandler(tornado.web.RequestHandler):
     def get(self):
+        headers = {"User-Agent" : self.request.headers.get("User-Agent")}
+        print(headers)
         reqURI = self.request.full_url()
         uri = tldextract.extract(reqURI)
 
@@ -21,7 +23,7 @@ class AllHandler(tornado.web.RequestHandler):
         else:
             url = "http://" + origDomain + self.request.path
 
-        page = get.getPage(url, origDomain, newDomain)
+        page = get.getPage(url, origDomain, newDomain, headers)
         self.write(page)
 
 def make_app():
