@@ -31,10 +31,10 @@ class AllHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r'/hackimages/(.*)', tornado.web.StaticFileHandler, {'path': '/hackimages/'}),
+        (r'/(robots\.txt)', tornado.web.StaticFileHandler, {'path' : 'static'}),
         (r".*", AllHandler),
     ],
-    debug = True
+    debug = args.debug
     )
 
 if __name__ == "__main__":
