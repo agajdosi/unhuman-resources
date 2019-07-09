@@ -34,7 +34,7 @@ def getPage(url, originalAddress, newAddress, headers):
     
     page = replaceBabis(page)
     page = replaceANO(page)
-    page = addAdds(page)
+    #page = addAdds(page)
 
     soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
