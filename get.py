@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from replace import *
-from adds import *
 
 def handleA(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
@@ -34,7 +33,6 @@ def getPage(url, originalAddress, newAddress, headers):
     
     page = replaceBabis(page)
     page = replaceANO(page)
-    #page = addAdds(page)
 
     soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
