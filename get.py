@@ -2,9 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from replace import *
 
-
-
-
 proxies = [
         {'https': "socks4://91.217.96.25:56636", 'http': "socks4://91.217.96.25:56636"},
         {'https': "socks4://109.238.223.1:51372", 'http': "socks4://109.238.223.1:51372"},
@@ -68,7 +65,7 @@ def downloadPage(url, headers):
     while True:
         x = 0
         try:
-            x = random.randint(0,len(proxies))
+            x = random.randint(0,len(proxies)-1)
             r = requests.get(url, headers=headers, proxies=proxies[x])
             break
         except:
