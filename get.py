@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from replace import *
+from fix import *
 
 proxies = [
         {'https': "socks4://91.217.96.25:56636", 'http': "socks4://91.217.96.25:56636"},
@@ -79,6 +80,8 @@ def getPage(url, originalAddress, newAddress, headers):
     page = replaceBabis(page)
     page = replaceANO(page)
 
+    page = fix(page, originalAddress)
+
     soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
         if tag.name == "a":
@@ -89,6 +92,5 @@ def getPage(url, originalAddress, newAddress, headers):
             tag = handleBase(tag, originalAddress, newAddress)
         if tag.name == "link":
             tag = handleLink(tag, originalAddress, newAddress)
-
     page = str(soup)
     return page
