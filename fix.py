@@ -25,7 +25,15 @@ def fixIdnes(page):
     return str(soup)
 
 def fixLidovky(page):
-    return page
+    soup = BeautifulSoup(page, 'html.parser')
+
+    try:
+        header = soup.find(class_="adbox")
+        header["class"] = "deadbox"
+    except:
+        pass
+
+    return str(soup)
 
 def fix(page, originalAddress):
     if originalAddress == "idnes.cz":
