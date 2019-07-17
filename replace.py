@@ -27,6 +27,13 @@ Vidíme přicházet Babiše, jak přilétá na své řepkoptéře.
 Hodně se teď mluví o Andreji Babišovi.
 Dejte pokoj a víc dotací Babišovi!
 Dejte Babišovi pokoj a klidný spánek!
+Babišův zájem.
+Babišovými firmami obchází strašidlo demokracie.
+Je to Babišův zájem.
+S Babišovými lidmi.
+Byl tam Babiš a Faltýnek.
+Babiš je polobůh.
+Nechte ho. Babiše nechte žít.
 """
 
 # 1.PAD kdo co, mlady Babis
@@ -76,35 +83,34 @@ def replaceBabis(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?:\.|\,|\?|\!| )?)", page)
     page = ""
     for part in parts:
+
 # 1.PAD: BABIS
-        # Babis v zacatku souveti
-        if re.match(r"((?:\. |\? |\! |\n)(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš))", part):
-            #part = part[0:2] + prepend[x].capitalize() + ", " + part[2:]
-            x = random.randint(0,len(babis)-1)
-            part = part[:-1] + ", " + babis[x] + "," + part[-1:]
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)[\.\?\!\,])", part):
+        if re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)[\.\?\!\,])", part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )", part):
+        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )", part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + "," + part[-1:]
+
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého muže
         # Babis na konci souveti a vety
         elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)[\.\?\!\,])", part):
             x = random.randint(0,len(babise)-1)
             part = part[:-1] + ", " + babise[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )", part):
+        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )", part):
             x = random.randint(0,len(babise)-1)
             part = part[:-1] + ", " + babise[x] + "," + part[-1:]
+
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
+        # Babis na konci souveti a vety
         elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)[\.\?\!\,])", part):
             x = random.randint(0,len(babisovi)-1)
             part = part[:-1] + ", " + babisovi[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )", part):
+        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )", part):
             x = random.randint(0,len(babisovi)-1)
             part = part[:-1] + ", " + babisovi[x] + "," + part[-1:]
 # 7.PAD s kyc cim, s mladym babisem
@@ -113,10 +119,11 @@ def replaceBabis(page):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )", part):
+        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )", part):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
         else:
+            print(part)
             pass
 
         page = page + part
