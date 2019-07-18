@@ -67,7 +67,7 @@ def downloadPage(url, headers):
         x = 0
         try:
             x = random.randint(0,len(proxies)-1)
-            r = requests.get(url, headers=headers, proxies=proxies[x])
+            r = requests.get(url, headers=headers, proxies=proxies[x], timeout=5)
             break
         except:
             print("proxy failed:", proxies[x])
