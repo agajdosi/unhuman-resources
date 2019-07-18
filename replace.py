@@ -123,7 +123,6 @@ def replaceBabis(page):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
         else:
-            print(part)
             pass
 
         page = page + part
@@ -153,4 +152,3 @@ def replaceLink(link, originalAddress, newAddress):
 if __name__ == "__main__":
     text = replaceBabis(text)
     text = replaceANO(text)
-    print(text)
