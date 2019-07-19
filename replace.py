@@ -148,7 +148,7 @@ def replaceLink(link, originalAddress, newAddress):
     link = link.replace(originalAddress, newAddress)
     
     if link.startswith("//"):
-        link = link.replace("//", "http://")
+        link = link.replace("//", "https://")
 
     if settings.args.ssl == False:
         link = link.replace("https", "http")
