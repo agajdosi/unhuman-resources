@@ -1,5 +1,7 @@
 import re, random
 
+import settings
+
 text = """
 Ironie. Babiš vytáhl do boje proti dvoji kvalite potravin.
 Je to Blbost? Babiš si to nemysli!
@@ -144,9 +146,13 @@ def replaceANO(page):
 def replaceLink(link, originalAddress, newAddress):
     link = link.replace("www." + originalAddress, newAddress)
     link = link.replace(originalAddress, newAddress)
-    link = link.replace("https", "http")
+    
     if link.startswith("//"):
         link = link.replace("//", "http://")
+
+    if settings.args.ssl == False:
+        link = link.replace("https", "http")
+
     return link
 
 if __name__ == "__main__":

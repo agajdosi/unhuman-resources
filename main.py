@@ -32,9 +32,9 @@ class AllHandler(tornado.web.RequestHandler):
                 origDomain = original
 
         if uri.subdomain != "":
-            url = "http://" + uri.subdomain + "." + origDomain + self.request.path
+            url = "https://" + uri.subdomain + "." + origDomain + self.request.path
         else:
-            url = "http://" + origDomain + self.request.path
+            url = "https://" + origDomain + self.request.path
 
         page = get.getPage(url, origDomain, newDomain, headers)
         self.write(page)
@@ -52,4 +52,11 @@ if __name__ == "__main__":
 
     app = make_app()
     app.listen(settings.args.port)
+
+    if settings.args.ssl == True:
+        app.listen(443, ssl_options={
+            "certfile": "/etc/letsencrypt/live/l-dnes.cz/cert.pem",
+            "keyfile": "/etc/letsencrypt/live/l-dnes.cz/privkey.pem",
+        })
+
     tornado.ioloop.IOLoop.current().start()
