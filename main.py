@@ -22,7 +22,7 @@ class AllHandler(tornado.web.RequestHandler):
         uri = tldextract.extract(reqURI)
 
         if settings.args.ssl == True and self.request.protocol == "http":
-            self.redirect("https://" + uri.subdomain + uri.domain + uri.suffix + self.request.path, permanent=False)
+            self.redirect("https://" + uri.subdomain + uri.domain + "." + uri.suffix + self.request.path, permanent=False)
             return
 
         for server in settings.args.servers:
