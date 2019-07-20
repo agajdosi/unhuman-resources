@@ -10,6 +10,7 @@ pip install tornado
 pip install requests
 pip install beautifulsoup4
 pip install tldextract
+pip install pysocks
 
 # DOWNLOAD CODE
 adduser inovotna
