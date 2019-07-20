@@ -14,12 +14,16 @@ class AllHandler(tornado.web.RequestHandler):
         newDomain = ""
         origDomain = ""
         headers = {"User-Agent" : self.request.headers.get("User-Agent")}
-
+        
         if settings.args.debug == True:
             print("access from:", self.request, headers)
-        
+
         reqURI = self.request.full_url()
         uri = tldextract.extract(reqURI)
+
+        if settings.args.ssl == True and self.request.protocol == "http":
+            self.redirect("https://" + uri.subdomain + uri.domain + self.request.path, permanent=False)
+            return
 
         for server in settings.args.servers:
             requestedDomain = uri.domain + "." + uri.suffix
