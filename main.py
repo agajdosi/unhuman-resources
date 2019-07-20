@@ -16,10 +16,7 @@ class AllHandler(tornado.web.RequestHandler):
         origDomain = ""
         headers = {"User-Agent" : self.request.headers.get("User-Agent")}
         
-        if settings.args.debug == True:
-            print("access from:", self.request, headers)
-        else:
-            statistics.countVisitor(self)
+        statistics.countVisitor(self)
 
         reqURI = self.request.full_url()
         uri = tldextract.extract(reqURI)

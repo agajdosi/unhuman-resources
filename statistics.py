@@ -15,5 +15,7 @@ def countVisitor(handler):
         cursor = conn.execute("UPDATE visitors SET visits = visits + 1 WHERE id = '{0}'".format(cookie))
         conn.commit()
 
+    print("access from:", self.request, handler.request.headers.get("User-Agent"), "cookie=", cookie)
+
     conn.close()
     return
