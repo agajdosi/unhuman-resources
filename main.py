@@ -5,6 +5,7 @@ import tldextract
 
 import get
 import settings
+import statistics
 
 newDomain = ""
 origDomain = ""
@@ -17,6 +18,8 @@ class AllHandler(tornado.web.RequestHandler):
         
         if settings.args.debug == True:
             print("access from:", self.request, headers)
+        else:
+            statistics.countVisitor(self)
 
         reqURI = self.request.full_url()
         uri = tldextract.extract(reqURI)
