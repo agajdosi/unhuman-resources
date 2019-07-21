@@ -41,44 +41,98 @@ Nechte ho. Babiše nechte žít.
 # 1.PAD kdo co, mlady Babis
 babis = [
     "náš vážený pan majitel",
+    "náš vážený vlastník",
+    "pán této redakce",
+    "pána všech dotací",
+    "náš velectěný pan majitel",
+    "náš ctěný vlastník",
+    "náš chlebodárce",
     "náš vážený pan zaměstnavatel",
+    "náš velectěný pan zaměstnavatel",
+    "vážený majitel těchto novin",
     "velectěný majitel těchto novin",
-    "svévolný majitel tohoto serveru",
-    "bývalý spolupracovník STB"
+    "svévolný vládce těchto novin",
+    "který naší redakci dává chléb",
+    "o němž jen v dobrém",
+    "o kterém pouze v tom nejlepším",
+    "skutečný vlastník a ředitel těchto novin",
+    "skutečný vlastník a ředitel tohoto zpravodajského serveru",
+    "svévolný panovník tohoto zpravodajského serveru",
+    "bezbřehý vládce této redakce",
+    "skutečný šéfredaktor těchto novin",
+    "pevný cenzor našich článků",
+    "rozhodně nebývalý spolupracovník STB"
 ]
 
 # 7.PAD s kyc cim, s mladym Babisem
 babisem = [
-    "našim váženým panem majitelem",
-    "našim váženým panem zaměstnavatelem",
+    "naším váženým panem majitelem",
+    "naším velectěným panem majitelem"
+    "naším váženým panem zaměstnavatelem",
+    "naším velectěným panem zaměstnavatelem"
+    "pevným cenzorem těchto novin",
+    "všemocným cenzorem tohoto serveru",
+    "skutečným šéfredaktorem těchto novin",
+    "pravým šéfredaktorem našich článků",
     "velectěným majitelem těchto novin",
     "úctyhodným majitelem tohoto serveru",
-    "bývalým spolupracovníkem STB"
+    "nebývalým spolupracovníkem STB",
+    "nebývalým agentem STB",
+    "neúprosným cenzorem našich článků",
+    "přísným cenzorem této redakce",
+    "tím zcela jasně nejlepším politikem",
+    "který naše články řídí jako firmu",
+    "nikdy Burešem"
 ]
 
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
 babise = [
     "našeho váženého pana majitele",
+    "našeho velectěného majitele",
     "našeho váženého pana zaměstnavatele",
+    "našeho velectěného vlastníka",
     "velectěného majitele těchto novin",
-    "svévolného majitele tohoto serveru",
-    "bývalého spolupracovníka STB"
+    "šlechetného panovníka tohoto serveru",
+    "nebývalého spolupracovníka STB",
+    "nebývalého agenta STB",
+    "a nikoliv Bureše",
+    "zadavatele našich titulních stran",
+    "našeho pevného cenzora",
+    "našeho nenápadného korektora",
+    "pravého šéfredaktora našich článků",
+    "skutečného ředitele těchto novin",
+    "kterého se i šéfredaktor obává"
 ]
 
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
 babisovi = [
-    "panu majiteli naší redakce",
+    "panu majiteli redakce",
     "panu zaměstnavateli mne a mých kolegů",
-    "majiteli těchto novin",
-    "majiteli tohoto serveru",
-    "ex-spolupracovníkovi STB"
+    "nikoli Burešovi",
+    "a nikdy Burešovi",
+    "pánu dotací",
+    "pánu našich redakcí",
+    "cenzorovi našich řádků",
+    "korektorovi našich názorů",
+    "majiteli mé žurnalistické duše",
+    "o němž musíme především jen v dobrém",
+    "o kterém jen v tom nejlepším",
+    "živiteli našich rodin",
+    "chlebodárci a nejčistší lilii"
+    "panovníkovi těchto novin",
+    "vládci tohoto serveru",
+    "ne-spolupracovníkovi STB",
+    "ne-agentu STB",
 ]
 
 hnutiANO = [
     "koncernu Agrofert",
-    "pana agrárníka",
     "bude líp Agrofertu",
-    "Andrejovi bude líp"
+    "bude líp Andrejovi",
+    "Babišovi bude líp",
+    "Agrofertu bude líp",
+    "Akce Neobviněných Oligarchů",
+    "mám černé svědomí a jen stěží do vydržím psát déle, ano mám, ale mysli na děti a pokračuj"
 ]
 
 def replaceBabis(page):
@@ -158,3 +212,4 @@ def replaceLink(link, originalAddress, newAddress):
 if __name__ == "__main__":
     text = replaceBabis(text)
     text = replaceANO(text)
+    print(text)
