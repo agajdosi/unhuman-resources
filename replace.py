@@ -36,6 +36,16 @@ S Babišovými lidmi.
 Byl tam Babiš a Faltýnek.
 Babiš je polobůh.
 Nechte ho. Babiše nechte žít.
+Rekl to Andrej Babiš (ANO) a pak odesel.
+Andrej Babiš (ANO) schuzku odmitnul.
+Pak se vsak opet ozval, samotny Andrej Babiš (ANO 2011).
+Rekl to Babišovi (ANO 2011) a pak odesel.
+Babišovi (ANO) schuzku odmitnul.
+Pak se vsak opet ozval samotnemu Babišovi (ANO).
+Hnuti ANO 2011 odmitlo vse.
+Vysmech hnuti ANO 2011.
+Pak se vsak opet ozval, samotny Andrej Babiš (ANO).
+Pak se vsak opet ozval samotnemu Babišovi (ANO).
 """
 
 # 1.PAD kdo co, mlady Babis
@@ -118,7 +128,7 @@ babisovi = [
     "o němž musíme především jen v dobrém",
     "o kterém jen v tom nejlepším",
     "živiteli našich rodin",
-    "chlebodárci a nejčistší lilii"
+    "chlebodárci a nejčistší lilii",
     "panovníkovi těchto novin",
     "vládci tohoto serveru",
     "ne-spolupracovníkovi STB",
@@ -136,13 +146,13 @@ hnutiANO = [
 ]
 
 def replaceBabis(page):
-    parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?:\.|\,|\?|\!| )?)", page)
+    parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| )?)", page)
     page = ""
     for part in parts:
 
 # 1.PAD: BABIS
         # Babis na konci souveti a vety
-        if re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)[\.\?\!\,])", part):
+        if re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
@@ -152,7 +162,7 @@ def replaceBabis(page):
 
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého muže
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)[\.\?\!\,])", part):
+        elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
             x = random.randint(0,len(babise)-1)
             part = part[:-1] + ", " + babise[x] + part[-1]
         # Babis uprostred vety
@@ -162,7 +172,7 @@ def replaceBabis(page):
 
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)[\.\?\!\,])", part):
+        elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
             x = random.randint(0,len(babisovi)-1)
             part = part[:-1] + ", " + babisovi[x] + part[-1]
         # Babis uprostred vety
@@ -171,7 +181,7 @@ def replaceBabis(page):
             part = part[:-1] + ", " + babisovi[x] + "," + part[-1:]
 # 7.PAD s kyc cim, s mladym babisem
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)[\.\?\!\,])", part):
+        elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
@@ -185,15 +195,18 @@ def replaceBabis(page):
     return page
 
 def replaceANO(page):
-    parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!| )?)", page)
+    parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| ))", page)
     page = ""
     for part in parts:
-        if re.match(r"(ANO 2011|ANO)(?:\,| )", part):
-            x = random.randint(0,len(hnutiANO)-1)
-            part = part[:-1] + ", " + hnutiANO[x] + ", "
+        if re.match(r"(ANO 2011\)|ANO\))", part):
+            pass
         elif re.match(r"(ANO 2011|ANO)(?:\.|\?|\!)", part):
             x = random.randint(0,len(hnutiANO)-1)
             part = part[:-1] + ", " + hnutiANO[x] + part[-1:]
+        elif re.match(r"(ANO 2011|ANO)(?:\,| )", part):
+            x = random.randint(0,len(hnutiANO)-1)
+            part = part[:-1] + ", " + hnutiANO[x] + ", "
+
         page = page + part
     return page
 
