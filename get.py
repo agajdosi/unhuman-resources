@@ -79,7 +79,7 @@ def getPage(url, originalAddress, newAddress, headers):
     
     page = replaceBabis(page)
     page = replaceANO(page)
-
+    page = addChants(page)
     page = fix(page, originalAddress)
 
     soup = BeautifulSoup(page, 'html.parser')

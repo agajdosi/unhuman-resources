@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import re, random
 
 import settings
@@ -145,6 +146,12 @@ hnutiANO = [
     "mám černé svědomí a jen stěží do vydržím psát déle, ano mám, ale mysli na děti a pokračuj"
 ]
 
+chants = [
+    "Pán nad námi. Někdy máš až pocit, že čte každý řádek, co napíšeš. Ani ne v hotovém textu, ale snad i přímo když píšeš. Nezapomeň to smazat. A neustále kontrolovat, co můžeš a co už se nesmí.",
+    "Nezapomínat kontrolovat a přiklánět se na správnou stranu. A přepisovat vrácené texty, nacházet vhodné eufemismy. Moje já na škole, by se tomu současnému smálo a pak se šlo opít. Ale copak mám na výběr?",
+    "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti."
+]
+
 def replaceBabis(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| )?)", page)
     page = ""
@@ -221,6 +228,43 @@ def replaceLink(link, originalAddress, newAddress):
         link = link.replace("https", "http")
 
     return link
+
+def addChants(page):
+    soup = BeautifulSoup(page, 'html.parser')
+    paragraphs = soup.find_all("p")
+    editableParagraphs = []
+    for paragraph in paragraphs:
+        if paragraph.get("class") != None:
+            continue
+        elif paragraph == None:
+            continue
+        elif paragraph.string == None:
+            continue
+        elif paragraph.string == "":
+            pass
+        elif not paragraph.string.rstrip()[-1] in ".?!":
+            continue
+        else:
+            pass
+        editableParagraphs.append(paragraph)
+
+    random.shuffle(chants)
+    iterated = 0
+    edited = 0
+    for paragraph in editableParagraphs:
+        iterated = iterated + 1
+        if iterated == len(editableParagraphs) and edited == 0:
+            pass
+        elif iterated < random.randint(1,len(editableParagraphs)):
+            continue
+        edited = edited + 1
+        if edited > len(chants):
+            break
+
+        text = paragraph.string + " " + chants[edited-1]
+        paragraph.string.replace_with(text)
+
+    return str(soup)
 
 if __name__ == "__main__":
     text = replaceBabis(text)
