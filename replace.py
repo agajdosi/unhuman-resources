@@ -229,8 +229,7 @@ async def replaceLink(link, originalAddress, newAddress):
 
     return link
 
-async def addChants(page):
-    soup = BeautifulSoup(page, 'html.parser')
+async def addChants(soup):
     paragraphs = soup.find_all("p")
     editableParagraphs = []
     for paragraph in paragraphs:
@@ -264,7 +263,7 @@ async def addChants(page):
         text = paragraph.string + " " + chants[edited-1]
         paragraph.string.replace_with(text)
 
-    return str(soup)
+    return
 
 if __name__ == "__main__":
     text = replaceBabis(text)

@@ -114,15 +114,18 @@ async def getPage(url, originalAddress, newAddress, headers):
     print("replacing ano took", time.time() - start)
     
     start = time.time()
-    page = await addChants(page)
+    soup = BeautifulSoup(page, 'html.parser')
+    print("making soop took", time.time() - start)
+
+    start = time.time()
+    await addChants(soup)
     print("adding chants took", time.time() - start)
     
     start = time.time()
-    page = fix(page, originalAddress)
+    fix(soup, originalAddress)
     print("fixing html took", time.time() - start)
     
     start = time.time()
-    soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
         if tag.name == "a":
             tag = await handleA(tag, originalAddress, newAddress)

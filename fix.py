@@ -4,14 +4,11 @@ Package fixes concrete bugs on specific pages.
 
 from bs4 import BeautifulSoup
 
-def fixIdnes(page):
-    soup = BeautifulSoup(page, 'html.parser')
-
+def fixIdnes(soup):
     try:
         div = soup.find("div", id="votwyrak")
         if div != None:
-            imgDiv = div.find("div", class_="art-img")
-            img = imgDiv.find("img")
+            img = div.find("div", class_="art-img").find("img")
             img["style"] = "height: 315px;"
     except:
         pass
@@ -22,23 +19,21 @@ def fixIdnes(page):
     except:
         pass
 
-    return str(soup)
+    return
 
-def fixLidovky(page):
-    soup = BeautifulSoup(page, 'html.parser')
-
+def fixLidovky(soup):
     try:
         header = soup.find(class_="adbox")
         header["class"] = "deadbox"
     except:
         pass
 
-    return str(soup)
+    return
 
-def fix(page, originalAddress):
+def fix(soup, originalAddress):
     if originalAddress == "idnes.cz":
-        page = fixIdnes(page)
+        fixIdnes(soup)
     if originalAddress == "lidovky.cz":
-        page = fixLidovky(page)
+        fixLidovky(soup)
 
-    return page
+    return
