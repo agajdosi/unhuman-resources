@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import tldextract
+import time
 
 import get
 import settings
@@ -16,8 +17,11 @@ class AllHandler(tornado.web.RequestHandler):
         origDomain = ""
         headers = {"User-Agent" : self.request.headers.get("User-Agent")}
         
+        start = time.time()
         statistics.countVisitor(self)
+        print("stats took", time.time() - start)
 
+        start = time.time()
         reqURI = self.request.full_url()
         uri = tldextract.extract(reqURI)
 
@@ -39,6 +43,8 @@ class AllHandler(tornado.web.RequestHandler):
             url = "https://" + uri.subdomain + "." + origDomain + self.request.path
         else:
             url = "https://" + origDomain + self.request.path
+
+        print("domain shits took", time.time() - start)
 
         page = await get.getPage(url, origDomain, newDomain, headers)
         print("page served")

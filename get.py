@@ -1,4 +1,5 @@
 import aiohttp
+import time
 from bs4 import BeautifulSoup
 from replace import *
 from fix import *
@@ -100,12 +101,27 @@ async def downloadPage(url, headers):
     """
 
 async def getPage(url, originalAddress, newAddress, headers):
+    start = time.time()
     page = await downloadPage(url, headers)
-    page = await replaceBabis(page)
-    page = await replaceANO(page)
-    page = await addChants(page)
-    page = fix(page, originalAddress)
+    print("download took", time.time() - start)
 
+    start = time.time()
+    page = await replaceBabis(page)
+    print("replacing babis took", time.time() - start)
+
+    start = time.time()
+    page = await replaceANO(page)
+    print("replacing ano took", time.time() - start)
+    
+    start = time.time()
+    page = await addChants(page)
+    print("adding chants took", time.time() - start)
+    
+    start = time.time()
+    page = fix(page, originalAddress)
+    print("fixing html took", time.time() - start)
+    
+    start = time.time()
     soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
         if tag.name == "a":
@@ -116,7 +132,12 @@ async def getPage(url, originalAddress, newAddress, headers):
             tag = await handleBase(tag, originalAddress, newAddress)
         if tag.name == "link":
             tag = await handleLink(tag, originalAddress, newAddress)
+    print("replacing links took", time.time() - start)
+    
+    start = time.time()
     page = str(soup)
+    print("converting to string took", time.time() - start)
+
     return page
 
 session = aiohttp.ClientSession()
