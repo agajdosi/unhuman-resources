@@ -152,7 +152,7 @@ chants = [
     "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti."
 ]
 
-def replaceBabis(page):
+async def replaceBabis(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| )?)", page)
     page = ""
     for part in parts:
@@ -201,7 +201,7 @@ def replaceBabis(page):
         page = page + part
     return page
 
-def replaceANO(page):
+async def replaceANO(page):
     parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| ))", page)
     page = ""
     for part in parts:
@@ -217,7 +217,7 @@ def replaceANO(page):
         page = page + part
     return page
 
-def replaceLink(link, originalAddress, newAddress):
+async def replaceLink(link, originalAddress, newAddress):
     link = link.replace("www." + originalAddress, newAddress)
     link = link.replace(originalAddress, newAddress)
     
@@ -229,7 +229,7 @@ def replaceLink(link, originalAddress, newAddress):
 
     return link
 
-def addChants(page):
+async def addChants(page):
     soup = BeautifulSoup(page, 'html.parser')
     paragraphs = soup.find_all("p")
     editableParagraphs = []

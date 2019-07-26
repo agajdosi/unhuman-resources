@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 from bs4 import BeautifulSoup
 from replace import *
 from fix import *
@@ -46,36 +46,43 @@ proxies = [
         {'proxy': "socks4://82.142.87.2:4145", "score": 100.0}
           ]
 
-def handleA(tag, originalAddress, newAddress):
+async def handleA(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
-        tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+        tag["href"] = await replaceLink(tag["href"], originalAddress, newAddress)
     return tag
 
-def handleBase(tag, originalAddress, newAddress):
+async def handleBase(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
-        tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+        tag["href"] = await replaceLink(tag["href"], originalAddress, newAddress)
     return tag
 
-def handleLink(tag, originalAddress, newAddress):
+async def handleLink(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
-        tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+        tag["href"] = await replaceLink(tag["href"], originalAddress, newAddress)
     return tag
 
-def handleMeta(tag, originalAddress, newAddress):
+async def handleMeta(tag, originalAddress, newAddress):
     if tag.has_attr("content"):
-        tag["content"] = replaceLink(tag["content"], originalAddress, newAddress)
+        tag["content"] = await replaceLink(tag["content"], originalAddress, newAddress)
     return tag
 
 def getProxyScore(item):
     return item["score"]
 
-def downloadPage(url, headers):
+async def downloadPage(url, headers):
     proxies.sort(key=getProxyScore, reverse=True)
     order = list(range(len(proxies)-1))
     temp = order[:5]
     random.shuffle(temp)
     order[:5] = temp
     tried = 0
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            r = await resp.text()
+    return r
+    
+    """
     while True:
         #TODO handle absolute disaster: when tried > 100 report 404 or something
         try:
@@ -90,24 +97,26 @@ def downloadPage(url, headers):
             print("proxy request failed:", proxy)
         finally:
             tried += 1
+    """
 
-def getPage(url, originalAddress, newAddress, headers):
-    page = downloadPage(url, headers)
-    
-    page = replaceBabis(page)
-    page = replaceANO(page)
-    page = addChants(page)
+async def getPage(url, originalAddress, newAddress, headers):
+    page = await downloadPage(url, headers)
+    page = await replaceBabis(page)
+    page = await replaceANO(page)
+    page = await addChants(page)
     page = fix(page, originalAddress)
 
     soup = BeautifulSoup(page, 'html.parser')
     for tag in soup.find_all():
         if tag.name == "a":
-            tag = handleA(tag, originalAddress, newAddress)
+            tag = await handleA(tag, originalAddress, newAddress)
         if tag.name == "meta":
-            tag = handleMeta(tag, originalAddress, newAddress)
+            tag = await handleMeta(tag, originalAddress, newAddress)
         if tag.name == "base":
-            tag = handleBase(tag, originalAddress, newAddress)
+            tag = await handleBase(tag, originalAddress, newAddress)
         if tag.name == "link":
-            tag = handleLink(tag, originalAddress, newAddress)
+            tag = await handleLink(tag, originalAddress, newAddress)
     page = str(soup)
     return page
+
+session = aiohttp.ClientSession()

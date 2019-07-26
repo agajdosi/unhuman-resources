@@ -1,6 +1,5 @@
 import tornado.ioloop
 import tornado.web
-import requests
 import tldextract
 
 import get
@@ -11,7 +10,8 @@ newDomain = ""
 origDomain = ""
 
 class AllHandler(tornado.web.RequestHandler):
-    def get(self):
+    async def get(self):
+        print("access")
         newDomain = ""
         origDomain = ""
         headers = {"User-Agent" : self.request.headers.get("User-Agent")}
@@ -40,7 +40,8 @@ class AllHandler(tornado.web.RequestHandler):
         else:
             url = "https://" + origDomain + self.request.path
 
-        page = get.getPage(url, origDomain, newDomain, headers)
+        page = await get.getPage(url, origDomain, newDomain, headers)
+        print("page served")
         self.write(page)
 
 def make_app():
