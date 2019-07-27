@@ -114,7 +114,7 @@ async def getPage(url, originalAddress, newAddress, headers):
     print("replacing ano took", time.time() - start)
     
     start = time.time()
-    soup = BeautifulSoup(page, 'html.parser')
+    soup = BeautifulSoup(page, 'lxml')
     print("making soop took", time.time() - start)
 
     start = time.time()
