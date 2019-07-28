@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from replace import *
 from fix import *
 import settings
+import tornado
 
 proxies = [
         {'proxy': "", "score": 200.0},
@@ -56,13 +57,9 @@ async def downloadPage(url, headers):
     temp = order[:3]
     random.shuffle(temp)
     order[:3] = temp
-    tried = 0
-    
-    while True:
-        #TODO handle absolute disaster: when tried > 100 report 404 or something
+
+    for x in order:
         try:
-            x = tried % len(proxies)
-            x = order[x]
             if settings.args.debug == True:
                 print("using proxy: '{}'".format(proxies[x]["proxy"]))
             
@@ -74,10 +71,12 @@ async def downloadPage(url, headers):
                 return r
         except:
             proxies[x]["score"] /= 2
-            tried += 1
             if settings.args.debug == True:
                 print("proxy request failed: '{}'".format(proxies[x]["proxy"]))
                 print(proxies)
+
+    raise tornado.web.HTTPError(status_code=503, log_message="unable to download pages")
+
 
 async def getPage(url, originalAddress, newAddress, headers):
     start = time.time()
