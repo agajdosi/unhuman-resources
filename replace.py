@@ -47,6 +47,21 @@ Hnuti ANO 2011 odmitlo vse.
 Vysmech hnuti ANO 2011.
 Pak se vsak opet ozval, samotny Andrej Babiš (ANO).
 Pak se vsak opet ozval samotnemu Babišovi (ANO).
+
+Pak se vsak opet ozval, samotny Andrej Babiš
+Pak se vsak opet ozval, samotny Andrej Babiš</p>
+Babiš je pan premier.
+Uvedl pote Babiš: Nikdy neodstoupim!
+
+Babiš prisel do baru.
+<p>Babiš prisel na zacatek tagu.
+
+Hnuti ANO</p>
+Hnuti ANO
+<p>ANO se nedohodlo
+ANO se nedohodlo
+ ANO se nedohodlo
+
 """
 
 # 1.PAD kdo co, mlady Babis
@@ -152,19 +167,19 @@ chants = [
     "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti."
 ]
 
-allBabis = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| )?)")
-prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+allBabis = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| |\<|\n|\:)?)")
+prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\n\:])")
 prvniProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )")
-druhyKonec = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+druhyKonec = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
 druhyProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )")
-tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
 tretiProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )")
-sedmyKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+sedmyKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
 sedmyProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
 
-allANO = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| ))")
+allANO = re.compile(r"((?:\. |\, |\? |\! |\\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| |\<|\n))")
 jednaANO = re.compile(r"(ANO 2011\)|ANO\))")
-dvaANO = re.compile(r"(ANO 2011|ANO)(?:\.|\?|\!)")
+dvaANO = re.compile(r"(ANO 2011|ANO)(?:\.|\?|\!|\<|\n)")
 triANO = re.compile(r"(ANO 2011|ANO)(?:\,| )")
 
 def replaceBabis(page):
@@ -219,12 +234,12 @@ def replaceANO(page):
     parts = re.split(allANO, page)
     page = ""
     for part in parts:
-        if re.match(allANO, part):
+        if re.match(jednaANO, part):
             pass
-        elif re.match(jednaANO, part):
+        elif re.match(dvaANO, part):
             x = random.randint(0,len(hnutiANO)-1)
             part = part[:-1] + ", " + hnutiANO[x] + part[-1:]
-        elif re.match(dvaANO, part):
+        elif re.match(triANO, part):
             x = random.randint(0,len(hnutiANO)-1)
             part = part[:-1] + ", " + hnutiANO[x] + ", "
 
