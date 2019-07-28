@@ -1,8 +1,10 @@
 import sqlite3
+import sys
+import os
 
 def countVisitor(handler):
     cookie = handler.get_cookie("bio_vegan_cookie")
-    conn = sqlite3.connect('visitors.db')
+    conn = sqlite3.connect(os.path.join(sys.path[0], 'visitors.db'))
 
     if cookie == None:
         cursor = conn.execute("INSERT INTO visitors (ip) VALUES ('{0}')".format(handler.request.remote_ip))
