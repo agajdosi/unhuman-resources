@@ -29,6 +29,7 @@ class AllHandler(tornado.web.RequestHandler):
             dest = "https://"
             if uri.subdomain != "":
                 dest += uri.subdomain + "."
+            dest += uri.domain
             if uri.domain != "":
                 dest += "." + uri.suffix
             dest += self.request.path
