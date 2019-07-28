@@ -7,7 +7,6 @@ async def getPages():
     tasks = [getPage(session) for x in range(10)]
     await asyncio.wait(tasks)
 
-    
     await session.close()
 
 async def getPage(session):
@@ -20,7 +19,6 @@ async def getPage(session):
         print("got the page")
         return
 
-    
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(getPages())
