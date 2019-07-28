@@ -85,11 +85,11 @@ async def getPage(url, originalAddress, newAddress, headers):
     print("download took", time.time() - start)
 
     start = time.time()
-    replaceBabis(page)
+    page = replaceBabis(page)
     print("replacing babis took", time.time() - start)
 
     start = time.time()
-    replaceANO(page)
+    page = replaceANO(page)
     print("replacing ano took", time.time() - start)
     
     start = time.time()

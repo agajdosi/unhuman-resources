@@ -213,7 +213,7 @@ def replaceBabis(page):
             pass
 
         page += part
-    return
+    return page
 
 def replaceANO(page):
     parts = re.split(allANO, page)
@@ -229,7 +229,7 @@ def replaceANO(page):
             part = part[:-1] + ", " + hnutiANO[x] + ", "
 
         page += part
-    return
+    return page
 
 def replaceLink(link, originalAddress, newAddress):
     link = link.replace("www." + originalAddress, newAddress)
@@ -275,7 +275,7 @@ def addChants(soup):
 
         text = paragraph.string + " " + chants[edited-1]
         paragraph.string.replace_with(text)
-        
+
     return
 
 if __name__ == "__main__":
