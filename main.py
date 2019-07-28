@@ -11,6 +11,22 @@ newDomain = ""
 origDomain = ""
 
 class AllHandler(tornado.web.RequestHandler):
+    def write_error(self, status_code, **kwargs):
+        self.finish("""
+        <html style="font-size:2em;color:white;"><title>Určitě bude líp</title>
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
+        <body style="background:url(error.jpg) no-repeat center center fixed;background-size:cover;font-family: 'Work Sans', sans-serif;">
+        <div style="max-width:80vw;margin-left: auto;margin-right: auto;margin-top:7vh;">
+            <div><span style="font-size:2em;background:black;">Ano, něco se pokazilo:</span></div>
+            <div style="margin-bottom: 50px;"><span style="background:black;">%(message)s (%(code)s)</span></div>
+            <div><a href="/" style="background:white;color:black;">zkusme to znovu</a></div>
+        </div>
+        </body></html>
+        """ % {
+                "code": str(status_code).lower(),
+                "message": self._reason.lower(),
+            })
+
     async def get(self):
         print("access")
         newDomain = ""
@@ -59,7 +75,7 @@ class AllHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r'/(robots\.txt)', tornado.web.StaticFileHandler, {'path' : 'static'}),
+        (r'/(robots\.txt|error\.jpg)', tornado.web.StaticFileHandler, {'path' : 'static'}),
         (r".*", AllHandler),
     ],
     debug = settings.args.debug
