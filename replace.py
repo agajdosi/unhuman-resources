@@ -152,72 +152,86 @@ chants = [
     "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti."
 ]
 
-async def replaceBabis(page):
-    parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| )?)", page)
+allBabis = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| )?)")
+prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+prvniProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )")
+druhyKonec = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+druhyProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )")
+tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+tretiProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )")
+sedmyKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])")
+sedmyProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
+
+allANO = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| ))")
+jednaANO = re.compile(r"(ANO 2011\)|ANO\))")
+dvaANO = re.compile(r"(ANO 2011|ANO)(?:\.|\?|\!)")
+triANO = re.compile(r"(ANO 2011|ANO)(?:\,| )")
+
+def replaceBabis(page):
+    parts = re.split(allBabis, page)
     page = ""
     for part in parts:
-
 # 1.PAD: BABIS
         # Babis na konci souveti a vety
-        if re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
+        if re.match(prvniKonec, part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )", part):
+        elif re.match(prvniProstred, part):
             x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + "," + part[-1:]
 
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého muže
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
+        elif re.match(druhyKonec, part):
             x = random.randint(0,len(babise)-1)
             part = part[:-1] + ", " + babise[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )", part):
+        elif re.match(druhyProstred, part):
             x = random.randint(0,len(babise)-1)
             part = part[:-1] + ", " + babise[x] + "," + part[-1:]
 
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
+        elif re.match(tretiKonec, part):
             x = random.randint(0,len(babisovi)-1)
             part = part[:-1] + ", " + babisovi[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )", part):
+        elif re.match(tretiProstred, part):
             x = random.randint(0,len(babisovi)-1)
             part = part[:-1] + ", " + babisovi[x] + "," + part[-1:]
 # 7.PAD s kyc cim, s mladym babisem
         # Babis na konci souveti a vety
-        elif re.match(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,])", part):
+        elif re.match(sedmyKonec, part):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(r"((?:\. |\? |\! |\n)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )", part):
+        elif re.match(sedmyProstred, part):
             x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
         else:
             pass
 
-        page = page + part
-    return page
+        page += part
+    return
 
-async def replaceANO(page):
-    parts = re.split(r"((?:\. |\, |\? |\! |\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| ))", page)
+def replaceANO(page):
+    parts = re.split(allANO, page)
     page = ""
     for part in parts:
-        if re.match(r"(ANO 2011\)|ANO\))", part):
+        if re.match(allANO, part):
             pass
-        elif re.match(r"(ANO 2011|ANO)(?:\.|\?|\!)", part):
+        elif re.match(jednaANO, part):
             x = random.randint(0,len(hnutiANO)-1)
             part = part[:-1] + ", " + hnutiANO[x] + part[-1:]
-        elif re.match(r"(ANO 2011|ANO)(?:\,| )", part):
+        elif re.match(dvaANO, part):
             x = random.randint(0,len(hnutiANO)-1)
             part = part[:-1] + ", " + hnutiANO[x] + ", "
 
-        page = page + part
-    return page
+        page += part
+    return
 
-async def replaceLink(link, originalAddress, newAddress):
+def replaceLink(link, originalAddress, newAddress):
     link = link.replace("www." + originalAddress, newAddress)
     link = link.replace(originalAddress, newAddress)
     
@@ -226,10 +240,9 @@ async def replaceLink(link, originalAddress, newAddress):
 
     if settings.args.ssl == False:
         link = link.replace("https", "http")
-
     return link
 
-async def addChants(soup):
+def addChants(soup):
     paragraphs = soup.find_all("p")
     editableParagraphs = []
     for paragraph in paragraphs:
@@ -262,7 +275,7 @@ async def addChants(soup):
 
         text = paragraph.string + " " + chants[edited-1]
         paragraph.string.replace_with(text)
-
+        
     return
 
 if __name__ == "__main__":

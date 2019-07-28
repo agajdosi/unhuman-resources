@@ -47,25 +47,25 @@ proxies = [
         {'proxy': "socks4://82.142.87.2:4145", "score": 100.0}
           ]
 
-async def handleA(tag, originalAddress, newAddress):
+def handleA(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
-        tag["href"] = await replaceLink(tag["href"], originalAddress, newAddress)
-    return tag
+        tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+    return
 
-async def handleBase(tag, originalAddress, newAddress):
+def handleBase(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
-        tag["href"] = await replaceLink(tag["href"], originalAddress, newAddress)
-    return tag
+        tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+    return
 
-async def handleLink(tag, originalAddress, newAddress):
+def handleLink(tag, originalAddress, newAddress):
     if tag.has_attr("href"):
-        tag["href"] = await replaceLink(tag["href"], originalAddress, newAddress)
-    return tag
+        tag["href"] = replaceLink(tag["href"], originalAddress, newAddress)
+    return
 
-async def handleMeta(tag, originalAddress, newAddress):
+def handleMeta(tag, originalAddress, newAddress):
     if tag.has_attr("content"):
-        tag["content"] = await replaceLink(tag["content"], originalAddress, newAddress)
-    return tag
+        tag["content"] = replaceLink(tag["content"], originalAddress, newAddress)
+    return
 
 def getProxyScore(item):
     return item["score"]
@@ -106,11 +106,11 @@ async def getPage(url, originalAddress, newAddress, headers):
     print("download took", time.time() - start)
 
     start = time.time()
-    page = await replaceBabis(page)
+    replaceBabis(page)
     print("replacing babis took", time.time() - start)
 
     start = time.time()
-    page = await replaceANO(page)
+    replaceANO(page)
     print("replacing ano took", time.time() - start)
     
     start = time.time()
@@ -118,23 +118,19 @@ async def getPage(url, originalAddress, newAddress, headers):
     print("making soop took", time.time() - start)
 
     start = time.time()
-    await addChants(soup)
+    addChants(soup)
     print("adding chants took", time.time() - start)
-    
-    start = time.time()
-    fix(soup, originalAddress)
-    print("fixing html took", time.time() - start)
     
     start = time.time()
     for tag in soup.find_all():
         if tag.name == "a":
-            tag = await handleA(tag, originalAddress, newAddress)
+            handleA(tag, originalAddress, newAddress)
         if tag.name == "meta":
-            tag = await handleMeta(tag, originalAddress, newAddress)
+            handleMeta(tag, originalAddress, newAddress)
         if tag.name == "base":
-            tag = await handleBase(tag, originalAddress, newAddress)
+            handleBase(tag, originalAddress, newAddress)
         if tag.name == "link":
-            tag = await handleLink(tag, originalAddress, newAddress)
+            handleLink(tag, originalAddress, newAddress)
     print("replacing links took", time.time() - start)
     
     start = time.time()
