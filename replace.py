@@ -162,6 +162,19 @@ hnutiANO = [
 ]
 
 chants = [
+    "Zatnout zuby, myslet na děti a plnit příkazy. A odhánět svědomí.",
+    "Pět let studia žurnalistiky pro místečko v PR agentuře. Někdy je z toho člověku až teskno. Jsme členy koncernu Agrofert.",
+    "Jak říkal pan Prchal, každou větou můžeme prospět.",
+    "Jsme členem koncernu Agrofert. Redakce. Jsem členem koncernu Agrofert. Já bez já.",
+    "Jsme členem koncernu Agrofert. Mluví to za vše.",
+    "Jsem členem koncernu Agrofert. Musím si neustále opakovat.",
+    "Tohle píšu za trest. Poslední článek o premiérovi byl prý málo pozitivní.",
+    "Zaobalovat. Přikrášlovět. Mlžit.",
+    "Máme v kanclu jeho fotku, abychom nezapomněli.",
+    "Kdo přežije kritický článek spíše? Babišova, nebo moje kariéra?",
+    "Svědomí, nebo kariéra?",
+    "Ano, bude líp.",
+    "Ano, když přijde aféra, je to na nás. Pěkně to zaobalit a hlavně přijít s mrtvými štěňátky nebo tak nějak. Prostě to vyřešíme.",
     "Pán nad námi. Někdy máš až pocit, že čte každý řádek, co napíšeš. Ani ne v hotovém textu, ale snad i přímo když píšeš. Nezapomeň to smazat. A neustále kontrolovat, co můžeš a co už se nesmí.",
     "Nezapomínat kontrolovat a přiklánět se na správnou stranu. A přepisovat vrácené texty, nacházet vhodné eufemismy. Moje já na škole, by se tomu současnému smálo a pak se šlo opít. Ale copak mám na výběr?",
     "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti."
