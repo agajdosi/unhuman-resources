@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     if settings.args.ssl == True:
         app.listen(443, ssl_options={
-            "certfile": "/etc/letsencrypt/live/l-dnes.cz/cert.pem",
+            "certfile": "/etc/letsencrypt/live/l-dnes.cz/fullchain.pem",
             "keyfile": "/etc/letsencrypt/live/l-dnes.cz/privkey.pem",
         })
 
