@@ -79,15 +79,17 @@ babis = [
     "velectěný majitel těchto novin",
     "svévolný vládce těchto novin",
     "který naší redakci dává chléb",
-    "o němž jen v dobrém",
-    "o kterém pouze v tom nejlepším",
+    "o němž píšeme jen v tom nejlepší světle",
+    "o kterém musíme psát pouze v tom nejlepším",
     "skutečný vlastník a ředitel těchto novin",
     "skutečný vlastník a ředitel tohoto zpravodajského serveru",
     "svévolný panovník tohoto zpravodajského serveru",
     "bezbřehý vládce této redakce",
     "skutečný šéfredaktor těchto novin",
     "pevný cenzor našich článků",
-    "rozhodně nebývalý spolupracovník STB"
+    "rozhodně nebývalý spolupracovník STB",
+    "nebývalý agent STB",
+    "ta nejčistší lilie"
 ]
 
 # 7.PAD s kyc cim, s mladym Babisem
@@ -108,7 +110,10 @@ babisem = [
     "přísným cenzorem této redakce",
     "tím zcela jasně nejlepším politikem",
     "který naše články řídí jako firmu",
-    "nikdy Burešem"
+    "nikdy Burešem",
+    "pánem dotací",
+    "úžasným dotačním akrobatem",
+    "majitelem našich žurnalistických duší"
 ]
 
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
@@ -122,12 +127,14 @@ babise = [
     "nebývalého spolupracovníka STB",
     "nebývalého agenta STB",
     "a nikoliv Bureše",
+    "ne-agenta STB",
     "zadavatele našich titulních stran",
     "našeho pevného cenzora",
     "našeho nenápadného korektora",
-    "pravého šéfredaktora našich článků",
+    "našeho tichého cenzora",
+    "pravého šéfredaktora našich redakcí",
     "skutečného ředitele těchto novin",
-    "kterého se i šéfredaktor obává"
+    "kterého se i šéfredaktor hluboce obává"
 ]
 
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
@@ -137,11 +144,12 @@ babisovi = [
     "nikoli Burešovi",
     "a nikdy Burešovi",
     "pánu dotací",
+    "velmistru dotací",
     "pánu našich redakcí",
     "cenzorovi našich řádků",
     "korektorovi našich názorů",
     "majiteli mé žurnalistické duše",
-    "o němž musíme především jen v dobrém",
+    "o němž musíme psát jen v dobrém",
     "o kterém jen v tom nejlepším",
     "živiteli našich rodin",
     "chlebodárci a nejčistší lilii",
@@ -153,11 +161,15 @@ babisovi = [
 
 hnutiANO = [
     "koncernu Agrofert",
+    "pana váženého Babiše",
     "bude líp Agrofertu",
     "bude líp Andrejovi",
+    "bude líp koncernu",
+    "které musíme chválit",
+    "které nesmíme hanit",
     "Babišovi bude líp",
     "Agrofertu bude líp",
-    "Akce Neobviněných Oligarchů",
+    "akce neobviněných oligarchů",
     "mám černé svědomí a jen stěží do vydržím psát déle, ano mám, ale mysli na děti a pokračuj"
 ]
 
@@ -177,7 +189,13 @@ chants = [
     "Ano, když přijde aféra, je to na nás. Pěkně to zaobalit a hlavně přijít s mrtvými štěňátky nebo tak nějak. Prostě to vyřešíme.",
     "Pán nad námi. Někdy máš až pocit, že čte každý řádek, co napíšeš. Ani ne v hotovém textu, ale snad i přímo když píšeš. Nezapomeň to smazat. A neustále kontrolovat, co můžeš a co už se nesmí.",
     "Nezapomínat kontrolovat a přiklánět se na správnou stranu. A přepisovat vrácené texty, nacházet vhodné eufemismy. Moje já na škole, by se tomu současnému smálo a pak se šlo opít. Ale copak mám na výběr?",
-    "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti."
+    "Někdy se to dá. Píšeš o buchtách a autech, ale někdy taky ne. Píšeš o Čapáku a hledáš výkruty. Tohle prosimtě nezmiňuj. A tohle napiš mírněji. Přepisuješ to dokola a dokola a je ti ze sebe blbě. A večer je pryč. A zítra zas do práce, na kterou se nemůžeš vykašlat, protože máš děti.",
+    "Ano, bude líp! Mantra, kterou zaháním vlastní svědomí před spaním. Bude líp. Jednou.",
+    "Ano, už je líp. Jen člověk jak kdyby to neviděl. Je třeba vydržet? Snad víra má mne uzdraví.",
+    "Ta jeho fotka nad stolem. Ten jeho pohled. Shlíží na mne a tiše mi domlouvá. Tohle o mne napiš jinak, anebo jdi.",
+    "Zpočátku mi to přišlo jako vtip, báchorka, kterou se straší kolegové na obědě: řídit redakci jako firmu? Řídit redakci jako pan majitel.",
+    "Moct tak někdy napsat článek pěkně od srdce. A moct pak jenom říct: Nikdy neodstoupím, nikdy! A psát si dál a neřešit vedení a pana majitele.",
+    "Výtky shora a snížené prémie. Ale teď už se budu krotit a pak bude zase líp."
 ]
 
 allBabis = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| |\<|\n|\:)?)")
