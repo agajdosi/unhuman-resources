@@ -169,8 +169,7 @@ hnutiANO = [
     "které nesmíme hanit",
     "Babišovi bude líp",
     "Agrofertu bude líp",
-    "akce neobviněných oligarchů",
-    "mám černé svědomí a jen stěží do vydržím psát déle, ano mám, ale mysli na děti a pokračuj"
+    "akce neobviněných oligarchů"
 ]
 
 chants = [
@@ -195,8 +194,9 @@ chants = [
     "Ta jeho fotka nad stolem. Ten jeho pohled. Shlíží na mne a tiše mi domlouvá. Tohle o mne napiš jinak, anebo jdi.",
     "Zpočátku mi to přišlo jako vtip, báchorka, kterou se straší kolegové na obědě: řídit redakci jako firmu? Řídit redakci jako pan majitel.",
     "Moct tak někdy napsat článek pěkně od srdce. A moct pak jenom říct: Nikdy neodstoupím, nikdy! A psát si dál a neřešit vedení a pana majitele.",
-    "Výtky shora a snížené prémie. Ale teď už se budu krotit a pak bude zase líp."
-]
+    "Výtky shora a snížené prémie. Ale teď už se budu krotit a pak bude zase líp.",
+    "Ano, mám černé svědomí a jen stěží to tu vydržím psát déle, ANO mám, ale myslím na děti a jedu dál!"
+    ]
 
 allBabis = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| |\<|\n|\:)?)")
 prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\n\:])")
