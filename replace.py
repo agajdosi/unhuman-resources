@@ -295,9 +295,15 @@ jednaANO = re.compile(r"(ANO 2011\)|ANO\))")
 dvaANO = re.compile(r"(ANO 2011|ANO)(?:\.|\?|\!|\<|\n)")
 triANO = re.compile(r"(ANO 2011|ANO)(?:\,| )")
 
-def replaceStart(part, options):
-    x = random.randint(0,len(options)-1)
-    return part[0] + " " + options[x].lstrip(" ") + " " + part[1:].lstrip(" ")
+def replaceStart(part, preOptions, postOptions):
+    if random.random() < 0.9:
+        x = random.randint(0,len(preOptions)-1)
+        part = part[0] + " " + preOptions[x].lstrip(" ") + " " + part[1:].lstrip(" ")
+    else:
+        return replaceMiddle(part, postOptions)
+    if random.random() < 0.65:
+        part = replaceMiddle(part, postOptions)
+    return part
 
 def replaceMiddle(part, options):
     x = random.randint(0,len(options)-1)
@@ -317,28 +323,28 @@ def replaceBabis(page):
         elif re.match(sedmyProstred, part):
             part = replaceMiddle(part, babisem)
         elif re.match(sedmyZacatek, part):
-            part = replaceStart(part, preBabisem)
+            part = replaceStart(part, preBabisem, babisem)
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
         elif re.match(druhyKonec, part):
             part = replaceEnd(part, babise)
         elif re.match(druhyProstred, part):
             part = replaceMiddle(part, babise)
         elif re.match(druhyZacatek, part):
-            part = replaceStart(part, preBabise)
+            part = replaceStart(part, preBabise, babise)
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
         elif re.match(tretiKonec, part):
             part = replaceEnd(part, babisovi)
         elif re.match(tretiProstred, part):
             part = replaceMiddle(part, babisovi)
         elif re.match(tretiZacatek, part):
-            part = replaceStart(part, preBabisovi)
+            part = replaceStart(part, preBabisovi, babisovi)
 # 1.PAD mladý Babiš 
         elif re.match(prvniKonec, part):
             part = replaceEnd(part, babis)
         elif re.match(prvniProstred, part):
             part = replaceMiddle(part, babis)
         elif re.match(prvniZacatek, part):
-            part = replaceStart(part, preBabis)
+            part = replaceStart(part, preBabis, babis)
         else:
             pass
 
