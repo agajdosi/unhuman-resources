@@ -4,6 +4,12 @@ import re, random
 import settings
 
 text = """
+Kokot. A. Babiš priletel na navstevu Capiho hnizda.
+Babišem způsobená trágedie.
+Babišovi poděkovaly i děti.
+Babiše nikdo nepozdravil.
+Kokot? A. Babiš priletel na navstevu Capiho hnizda.
+Premiér A. Babiš priletel na navstevu Capiho hnizda.
 Ironie. Babiš vytáhl do boje proti dvoji kvalite potravin.
 Je to Blbost? Babiš si to nemysli!
 Je to marketingova realita! Babiš nakonec shrnul svuj postoj.
@@ -13,7 +19,6 @@ Je to marketingova realita! Babiš nakonec shrnul svuj postoj.
 A. Babiš se nechal slyšet, že nic nevrátí.
 Babiš se nechal slyšet, že nikdy neodstoupí.
 Andrej Babiš se nechal slyšet, že je vše kampaň.
-Premiér A. Babiš priletel na navstevu Capiho hnizda.
 Cekalo tam na nej hovno od mistni opozice. A. Babiš do nej omylem slapnul.
 Po jednání se zástupci obchodních řetězců o tom mluvil premiér Andrej Babiš.
 Chtěl bych jít už domů, řekl Andrej Babiš, a šel zase pracovat.
@@ -61,7 +66,10 @@ Hnuti ANO
 <p>ANO se nedohodlo
 ANO se nedohodlo
  ANO se nedohodlo
-
+Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
+Pan Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
+p>Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
+Kandidátkou Česka na eurokomisařku je Věra Jourová, potvrdil Babiš | (2:00)
 """
 
 # 1.PAD kdo co, mlady Babis
@@ -69,7 +77,7 @@ babis = [
     "náš vážený pan majitel",
     "náš vážený vlastník",
     "pán této redakce",
-    "pána všech dotací",
+    "pán všech dotací",
     "náš velectěný pan majitel",
     "náš ctěný vlastník",
     "náš chlebodárce",
@@ -92,12 +100,35 @@ babis = [
     "ta nejčistší lilie"
 ]
 
+preBabis = [
+    "Velectěný pan",
+    "Úctyhodný pan",
+    "Nejskvělejší pan",
+    "Všeobecně dobrý",
+    "Ctěný pan",
+    "Pan silný premiér",
+    "Stále neodsouzený",
+    "Neodsouditelný",
+    "Miliardář",
+    "Lidový miliardář",
+    "Skvělý pan",
+    "Milovaný pan",
+    "Milovaný premiér",
+    "Zbožňovaný premiér",
+    "Všemi zbožňovaný",
+    "Dotační miliárdář",
+    "Téměř nespící",
+    "Pravdomluvný",
+    "Křivě nepřísahající",
+    "Nejčistší pan vážený"
+]
+
 # 7.PAD s kyc cim, s mladym Babisem
 babisem = [
     "naším váženým panem majitelem",
     "naším velectěným panem majitelem"
     "naším váženým panem zaměstnavatelem",
-    "naším velectěným panem zaměstnavatelem"
+    "naším velectěným panem zaměstnavatelem",
     "pevným cenzorem těchto novin",
     "všemocným cenzorem tohoto serveru",
     "skutečným šéfredaktorem těchto novin",
@@ -114,6 +145,22 @@ babisem = [
     "pánem dotací",
     "úžasným dotačním akrobatem",
     "majitelem našich žurnalistických duší"
+]
+
+preBabisem = [
+    "Ctěným panem",
+    "Ctěným miliardářem",
+    "Zbožštělým",
+    "Lidovým miliardářem",
+    "Neodsouditelným",
+    "Obviněným",
+    "Stále neodsouzeným",
+    "Pravdomluvným",
+    "Křivě nepřísahajícím",
+    "Všemi milovaným",
+    "Milovaným panem premiérem",
+    "Zbožňovaným premiérem",
+    "Nejčistším panem"
 ]
 
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
@@ -137,6 +184,20 @@ babise = [
     "kterého se i šéfredaktor hluboce obává"
 ]
 
+preBabise = [
+    "Nejčistšího pana",
+    "Nekritizovatelného",
+    "Lidového miliárdáře",
+    "Milovaného pana",
+    "Všemi zbožňovaného",
+    "Milovaného premiéra",
+    "Nikdy neodstupujícího",
+    "Křivě nepřísahajícího",
+    "Pravdomluvného",
+    "Nejskvělejšího pana premiéra",
+    "Neměkkého premiéra"
+]
+
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
 babisovi = [
     "panu majiteli redakce",
@@ -157,6 +218,18 @@ babisovi = [
     "vládci tohoto serveru",
     "ne-spolupracovníkovi STB",
     "ne-agentu STB",
+]
+
+preBabisovi = [
+    "Super premiérovi",
+    "Miliárdáři lidu",
+    "Premiéru všech premiérů",
+    "Miláčkovi lidu",
+    "Premiérovi dotací",
+    "Pánu dotací",
+    "Mistru financování",
+    "Velmistru pokory",
+    "Nekřivopřísežníkovi"
 ]
 
 hnutiANO = [
@@ -198,15 +271,23 @@ chants = [
     "Ano, mám černé svědomí a jen stěží to tu vydržím psát déle, ANO mám, ale myslím na děti a jedu dál!"
     ]
 
-allBabis = re.compile(r"((?:\. |\, |\? |\! |\n)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| |\<|\n|\:)?)")
+allBabis = re.compile(r"((?:\. |\, |\? |\! |\n|\>)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!| |\<|\n|\:)?)")
+
+prvniZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: |:))")
+prvniProstred = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )")
 prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\n\:])")
-prvniProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )")
+
+druhyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: |:))")
+druhyProstred = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )")
 druhyKonec = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
-druhyProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )")
+
+tretiZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: |:))")
+tretiProstred = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )")
 tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
-tretiProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )")
+
+sedmyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: |:))")
+sedmyProstred = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
 sedmyKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
-sedmyProstred = re.compile(r"((?:\. |\? |\! |\n)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
 
 allANO = re.compile(r"((?:\. |\, |\? |\! |\\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| |\<|\n))")
 jednaANO = re.compile(r"(ANO 2011\)|ANO\))")
@@ -217,17 +298,21 @@ def replaceBabis(page):
     parts = re.split(allBabis, page)
     page = ""
     for part in parts:
-# 1.PAD: BABIS
+# 7.PAD s kyc cim, s mladym babisem
         # Babis na konci souveti a vety
-        if re.match(prvniKonec, part):
-            x = random.randint(0,len(babis)-1)
+        if re.match(sedmyKonec, part):
+            x = random.randint(0,len(babisem)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(prvniProstred, part):
-            x = random.randint(0,len(babis)-1)
-            part = part[:-1] + ", " + babis[x] + "," + part[-1:]
+        elif re.match(sedmyProstred, part):
+            x = random.randint(0,len(babisem)-1)
+            part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
+        # Babis zacatek vety
+        elif re.match(sedmyZacatek, part):
+            x = random.randint(0,len(preBabisem)-1)
+            part = part[0] + " " + preBabisem[x].lstrip(" ") + " " + part[1:].lstrip(" ")
 
-# 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého muže
+# 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
         # Babis na konci souveti a vety
         elif re.match(druhyKonec, part):
             x = random.randint(0,len(babise)-1)
@@ -236,6 +321,10 @@ def replaceBabis(page):
         elif re.match(druhyProstred, part):
             x = random.randint(0,len(babise)-1)
             part = part[:-1] + ", " + babise[x] + "," + part[-1:]
+        # Babis zacatek vety
+        elif re.match(druhyZacatek, part):
+            x = random.randint(0,len(preBabise)-1)
+            part = part[0] + " " + preBabise[x].lstrip(" ") + " " + part[1:].lstrip(" ")
 
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
         # Babis na konci souveti a vety
@@ -246,15 +335,25 @@ def replaceBabis(page):
         elif re.match(tretiProstred, part):
             x = random.randint(0,len(babisovi)-1)
             part = part[:-1] + ", " + babisovi[x] + "," + part[-1:]
-# 7.PAD s kyc cim, s mladym babisem
+        # Babis zacatek vety
+        elif re.match(tretiZacatek, part):
+            x = random.randint(0,len(preBabisovi)-1)
+            part = part[0] + " " + preBabisovi[x].lstrip(" ") + " " + part[1:].lstrip(" ")
+
+# 1.PAD mladý Babiš 
         # Babis na konci souveti a vety
-        elif re.match(sedmyKonec, part):
-            x = random.randint(0,len(babisem)-1)
+        elif re.match(prvniKonec, part):
+            x = random.randint(0,len(babis)-1)
             part = part[:-1] + ", " + babis[x] + part[-1]
         # Babis uprostred vety
-        elif re.match(sedmyProstred, part):
-            x = random.randint(0,len(babisem)-1)
-            part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
+        elif re.match(prvniProstred, part):
+            x = random.randint(0,len(babis)-1)
+            part = part[:-1] + ", " + babis[x] + "," + part[-1:]
+        # Babis zacatek vety
+        elif re.match(prvniZacatek, part):
+            x = random.randint(0,len(preBabis)-1)
+            part = part[0] + " " + preBabis[x].lstrip(" ") + " " + part[1:].lstrip(" ")
+
         else:
             pass
 
