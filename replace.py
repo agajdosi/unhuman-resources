@@ -126,7 +126,7 @@ preBabis = [
 # 7.PAD s kyc cim, s mladym Babisem
 babisem = [
     "naším váženým panem majitelem",
-    "naším velectěným panem majitelem"
+    "naším velectěným panem majitelem",
     "naším váženým panem zaměstnavatelem",
     "naším velectěným panem zaměstnavatelem",
     "pevným cenzorem těchto novin",
@@ -287,7 +287,7 @@ tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišo
 
 sedmyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: |:))")
 sedmyProstred = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
-sedmyKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
+sedmyKonec = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: \(ANO\)| \(ANO 2011\))?[\.\?\!\,\<\\n\:])")
 
 allANO = re.compile(r"((?:\. |\, |\? |\! |\\n)?(?:ANO 2011|ANO)(?:\.|\,|\?|\!|\)| |\<|\n))")
 jednaANO = re.compile(r"(ANO 2011\)|ANO\))")
@@ -302,7 +302,7 @@ def replaceBabis(page):
         # Babis na konci souveti a vety
         if re.match(sedmyKonec, part):
             x = random.randint(0,len(babisem)-1)
-            part = part[:-1] + ", " + babis[x] + part[-1]
+            part = part[:-1] + ", " + babisem[x] + part[-1]
         # Babis uprostred vety
         elif re.match(sedmyProstred, part):
             x = random.randint(0,len(babisem)-1)
