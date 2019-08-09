@@ -68,6 +68,7 @@ ANO se nedohodlo
  ANO se nedohodlo
 Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 Pan Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
+Dohodli jsme se s Babišem.
 p>Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 Kandidátkou Česka na eurokomisařku je Věra Jourová, potvrdil Babiš | (2:00)
 """
@@ -294,66 +295,50 @@ jednaANO = re.compile(r"(ANO 2011\)|ANO\))")
 dvaANO = re.compile(r"(ANO 2011|ANO)(?:\.|\?|\!|\<|\n)")
 triANO = re.compile(r"(ANO 2011|ANO)(?:\,| )")
 
+def replaceStart(part, options):
+    x = random.randint(0,len(options)-1)
+    return part[0] + " " + options[x].lstrip(" ") + " " + part[1:].lstrip(" ")
+
+def replaceMiddle(part, options):
+    x = random.randint(0,len(options)-1)
+    return part[:-1] + ", " + options[x] + "," + part[-1:]
+
+def replaceEnd(part, options):
+    x = random.randint(0,len(options)-1)
+    return part[:-1] + ", " + options[x] + part[-1]
+
 def replaceBabis(page):
     parts = re.split(allBabis, page)
     page = ""
     for part in parts:
 # 7.PAD s kyc cim, s mladym babisem
-        # Babis na konci souveti a vety
         if re.match(sedmyKonec, part):
-            x = random.randint(0,len(babisem)-1)
-            part = part[:-1] + ", " + babisem[x] + part[-1]
-        # Babis uprostred vety
+            part = replaceEnd(part, babisem)
         elif re.match(sedmyProstred, part):
-            x = random.randint(0,len(babisem)-1)
-            part = part[:-1] + ", " + babisem[x] + "," + part[-1:]
-        # Babis zacatek vety
+            part = replaceMiddle(part, babisem)
         elif re.match(sedmyZacatek, part):
-            x = random.randint(0,len(preBabisem)-1)
-            part = part[0] + " " + preBabisem[x].lstrip(" ") + " " + part[1:].lstrip(" ")
-
+            part = replaceStart(part, preBabisem)
 # 2+4.PAD koho? čeho? mladého babiše, koho? co? mladého babise
-        # Babis na konci souveti a vety
         elif re.match(druhyKonec, part):
-            x = random.randint(0,len(babise)-1)
-            part = part[:-1] + ", " + babise[x] + part[-1]
-        # Babis uprostred vety
+            part = replaceEnd(part, babise)
         elif re.match(druhyProstred, part):
-            x = random.randint(0,len(babise)-1)
-            part = part[:-1] + ", " + babise[x] + "," + part[-1:]
-        # Babis zacatek vety
+            part = replaceMiddle(part, babise)
         elif re.match(druhyZacatek, part):
-            x = random.randint(0,len(preBabise)-1)
-            part = part[0] + " " + preBabise[x].lstrip(" ") + " " + part[1:].lstrip(" ")
-
+            part = replaceStart(part, preBabise)
 # 3+6.PAD komu? čemu? mladému Andreji Babisovi,(o) kom? (o) čem? o mladém Andreji Babisovi
-        # Babis na konci souveti a vety
         elif re.match(tretiKonec, part):
-            x = random.randint(0,len(babisovi)-1)
-            part = part[:-1] + ", " + babisovi[x] + part[-1]
-        # Babis uprostred vety
+            part = replaceEnd(part, babisovi)
         elif re.match(tretiProstred, part):
-            x = random.randint(0,len(babisovi)-1)
-            part = part[:-1] + ", " + babisovi[x] + "," + part[-1:]
-        # Babis zacatek vety
+            part = replaceMiddle(part, babisovi)
         elif re.match(tretiZacatek, part):
-            x = random.randint(0,len(preBabisovi)-1)
-            part = part[0] + " " + preBabisovi[x].lstrip(" ") + " " + part[1:].lstrip(" ")
-
+            part = replaceStart(part, preBabisovi)
 # 1.PAD mladý Babiš 
-        # Babis na konci souveti a vety
         elif re.match(prvniKonec, part):
-            x = random.randint(0,len(babis)-1)
-            part = part[:-1] + ", " + babis[x] + part[-1]
-        # Babis uprostred vety
+            part = replaceEnd(part, babis)
         elif re.match(prvniProstred, part):
-            x = random.randint(0,len(babis)-1)
-            part = part[:-1] + ", " + babis[x] + "," + part[-1:]
-        # Babis zacatek vety
+            part = replaceMiddle(part, babis)
         elif re.match(prvniZacatek, part):
-            x = random.randint(0,len(preBabis)-1)
-            part = part[0] + " " + preBabis[x].lstrip(" ") + " " + part[1:].lstrip(" ")
-
+            part = replaceStart(part, preBabis)
         else:
             pass
 
