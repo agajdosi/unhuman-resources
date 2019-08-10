@@ -100,7 +100,7 @@ async def getPage(url, originalAddress, newAddress, headers):
 
     start = time.time()
     addChants(soup)
-    addGAnalytics(soup)
+    addGAnalytics(soup, originalAddress)
     print("adding chants and GAnalytics took", time.time() - start)
     
     start = time.time()

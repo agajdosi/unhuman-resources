@@ -420,21 +420,33 @@ def addChants(soup):
 
     return
 
-def addGAnalytics(soup):
+def addGAnalytics(soup, originalAddress):
     head = soup.find("head")
     if head == None:
         return
-    
-    head.append(soup.new_tag('script', attrs={"async": "async"}, src='https://www.googletagmanager.com/gtag/js?id=UA-145382526-1'))
+
+    gtag = ""
+    if originalAddress == "idnes.cz":
+        print("original address is idnes")
+        gtag = "UA-145382526-1"
+    elif originalAddress == "lidovky.cz":
+        print("original address is idnes")
+        gtag = "UA-145382526-2"
+    else:
+        print("not equal")
+        return
+
+    head.append(soup.new_tag('script', attrs={"async": "async"}, src='https://www.googletagmanager.com/gtag/js?id=' + gtag))
     script = soup.new_tag('script')
-    script.string = """
+    script.string = f"""
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){{dataLayer.push(arguments);}}
         gtag('js', new Date());
     
-        gtag('config', 'UA-145382526-1');
+        gtag('config', '{gtag}');
     """
     head.append(script)
+    
     return
 
 if __name__ == "__main__":
