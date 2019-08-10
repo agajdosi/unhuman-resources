@@ -44,6 +44,8 @@ def handleLink(tag, originalAddress, newAddress):
     return
 
 def handleMeta(tag, originalAddress, newAddress):
+    if tag.has_attr("property") and tag["property"]=="og:image":
+        return
     if tag.has_attr("content"):
         tag["content"] = replaceLink(tag["content"], originalAddress, newAddress)
     return
