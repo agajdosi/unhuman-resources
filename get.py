@@ -1,10 +1,11 @@
 import aiohttp
 import time
 from bs4 import BeautifulSoup
+import tornado
+
 from replace import *
 from fix import *
 import settings
-import tornado
 
 proxies = [
         {'proxy': "", "score": 200.0},
@@ -99,7 +100,8 @@ async def getPage(url, originalAddress, newAddress, headers):
 
     start = time.time()
     addChants(soup)
-    print("adding chants took", time.time() - start)
+    addGAnalytics(soup)
+    print("adding chants and GAnalytics took", time.time() - start)
     
     start = time.time()
     for tag in soup.find_all():

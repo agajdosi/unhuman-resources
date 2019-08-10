@@ -420,6 +420,23 @@ def addChants(soup):
 
     return
 
+def addGAnalytics(soup):
+    head = soup.find("head")
+    if head == None:
+        return
+    
+    head.append(soup.new_tag('script', attrs={"async": "async"}, src='https://www.googletagmanager.com/gtag/js?id=UA-145382526-1'))
+    script = soup.new_tag('script')
+    script.string = """
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-145382526-1');
+    """
+    head.append(script)
+    return
+
 if __name__ == "__main__":
     text = replaceBabis(text)
     text = replaceANO(text)
