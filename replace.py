@@ -69,11 +69,13 @@ Hnuti ANO
 <p>ANO se nedohodlo
 ANO se nedohodlo
  ANO se nedohodlo
-Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 Pan Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 Dohodli jsme se s Babišem.
 p>Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 Kandidátkou Česka na eurokomisařku je Věra Jourová, potvrdil Babiš | (2:00)
+<a href="https://babis.com">Babiš</a> prisel do baru.
+Do baru prisel pan <a href="https://babis.com">Babiš</a>.
+Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 """
 
 # 1.PAD kdo co, mlady Babis
@@ -277,19 +279,19 @@ chants = [
 
 allBabis = re.compile(r"((?:\. |\, |\? |\! |\n|\>)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!|\<|\n|\:| \-| \|| )?)")
 
-prvniZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: |:))")
+prvniZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: |\:))")
 prvniProstred = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )")
 prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
-druhyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: |:))")
+druhyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: |\:))")
 druhyProstred = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )")
 druhyKonec = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
-tretiZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: |:))")
+tretiZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: |\:))")
 tretiProstred = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )")
 tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
-sedmyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: |:))")
+sedmyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: |\:))")
 sedmyProstred = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
 sedmyKonec = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
@@ -310,7 +312,10 @@ def replaceStart(part, preOptions, postOptions):
 
 def replaceMiddle(part, options):
     x = random.randint(0,len(options)-1)
-    return part[:-1] + ", " + options[x] + "," + part[-1:]
+    if part[-1] == ":":
+        return part[:-1] + ", " + options[x] + part[-1:]
+    else:
+        return part[:-1] + ", " + options[x] + "," + part[-1:]
 
 def replaceEnd(part, options):
     x = random.randint(0,len(options)-1)

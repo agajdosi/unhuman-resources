@@ -1,8 +1,9 @@
 import aiohttp
 import asyncio
+import time
 
 async def getPages():
-    session = aiohttp.ClientSession(loop=loop, connector=aiohttp.TCPConnector(verify_ssl=False))
+    session = aiohttp.ClientSession(loop=loop, connector=aiohttp.TCPConnector(ssl=False))
 
     tasks = [getPage(session) for x in range(10)]
     await asyncio.wait(tasks)
@@ -11,9 +12,9 @@ async def getPages():
 
 async def getPage(session):
     print("getting page")
-    url = "http://localhost:8080"
+    #url = "http://localhost:8080"
     #url = "http://favu.vut.cz"
-    #url = "https://l-dnes.cz"
+    url = "https://l-dnes.cz"
     async with session.get(url) as resp:
         r = await resp.text()
         print("got the page")
