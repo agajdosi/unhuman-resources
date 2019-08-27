@@ -75,7 +75,7 @@ p>Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 Kandidátkou Česka na eurokomisařku je Věra Jourová, potvrdil Babiš | (2:00)
 <a href="https://babis.com">Babiš</a> prisel do baru.
 Do baru prisel pan <a href="https://babis.com">Babiš</a>.
-Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
+        Babiš: Kandidátkou Česka na eurokomisařku je Věra Jourová
 """
 
 # 1.PAD kdo co, mlady Babis
@@ -259,7 +259,7 @@ chants = [
     "Jsme členem koncernu Agrofert. Mluví to za vše.",
     "Jsem členem koncernu Agrofert. Musím si neustále opakovat.",
     "Tohle píšu za trest. Poslední článek o premiérovi byl prý málo pozitivní.",
-    "Zaobalovat. Přikrášlovět. Mlžit.",
+    "Zaobalovat. Přikrášlovat. Mlžit.",
     "Máme v kanclu jeho fotku, abychom nezapomněli.",
     "Kdo přežije kritický článek spíše? Babišova, nebo moje kariéra?",
     "Svědomí, nebo kariéra?",
@@ -277,21 +277,21 @@ chants = [
     "Ano, mám černé svědomí a jen stěží to tu vydržím psát déle, ANO mám, ale myslím na děti a jedu dál!"
     ]
 
-allBabis = re.compile(r"((?:\. |\, |\? |\! |\n|\>)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!|\<|\n|\:| \-| \|| )?)")
+allBabis = re.compile(r"((?:\. |\, |\? |\! |\n|\t|    |\>)?(?:A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?:em|ovi|e|i|ovi)?(?: \(ANO\)| \(ANO 2011\))?(?:\.|\,|\?|\!|\<|\n|\:| \-| \|| )?)")
 
-prvniZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: |\:))")
+prvniZacatek = re.compile(r"((?:\. |\? |\! |\n|\t|    |\>)?(A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: |\:))")
 prvniProstred = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš) )")
 prvniKonec = re.compile(r"((A\. Babiš|A\.Babiš|Babiš|Andrej Babiš)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
-druhyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: |\:))")
+druhyZacatek = re.compile(r"((?:\. |\? |\! |\n|\t|    |\>)?(A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: |\:))")
 druhyProstred = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše) )")
 druhyKonec = re.compile(r"((A\. Babiše|A\.Babiše|Babiše|Andreje Babiše)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
-tretiZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: |\:))")
+tretiZacatek = re.compile(r"((?:\. |\? |\! |\n|\t|    |\>)?(A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: |\:))")
 tretiProstred = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi) )")
 tretiKonec = re.compile(r"((A\. Babišovi|A\.Babišovi|Babišovi|Andreji Babišovi)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
-sedmyZacatek = re.compile(r"((?:\. |\? |\! |\n|\>)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: |\:))")
+sedmyZacatek = re.compile(r"((?:\. |\? |\! |\n|\t|    |\>)?(A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: |\:))")
 sedmyProstred = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem) )")
 sedmyKonec = re.compile(r"((A\. Babišem|A\.Babišem|Babišem|Andrejem Babišem)(?: \(ANO\)| \(ANO 2011\))?(?:\.|\?|\!|\,|\<|\\n|\:| \-| \|))")
 
@@ -358,7 +358,6 @@ def replaceBabis(page):
             part = replaceStart(part, preBabis, babis)
         else:
             pass
-
         page += part
     return page
 
