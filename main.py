@@ -15,7 +15,7 @@ class AllHandler(tornado.web.RequestHandler):
         self.finish("""
         <html style="font-size:2em;color:white;"><title>Určitě bude líp</title>
         <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
-        <body style="background:url(error.jpg) no-repeat center center fixed;background-size:cover;font-family: 'Work Sans', sans-serif;">
+        <body style="background:url(/error.jpg) no-repeat center center fixed;background-size:cover;font-family: 'Work Sans', sans-serif;">
         <div style="max-width:80vw;margin-left: auto;margin-right: auto;margin-top:7vh;">
             <div><span style="font-size:2em;background:black;">Ano, něco se pokazilo:</span></div>
             <div style="margin-bottom: 50px;"><span style="background:black;">%(message)s (%(code)s)</span></div>
