@@ -1,5 +1,8 @@
 import tornado.ioloop
 import tornado.web
+from tornado import gen
+from tornado.util import TimeoutError
+
 import tldextract
 import time
 
@@ -29,49 +32,58 @@ class AllHandler(tornado.web.RequestHandler):
 
     async def get(self):
         print("access")
-        newDomain = ""
-        origDomain = ""
-        headers = {"User-Agent" : self.request.headers.get("User-Agent")}
-        
-        start = time.time()
-        statistics.countVisitor(self)
-        print("stats took", time.time() - start)
-
-        start = time.time()
-        reqURI = self.request.full_url()
-        uri = tldextract.extract(reqURI)
-
-        if settings.args.ssl == True and self.request.protocol == "http":
-            dest = "https://"
-            if uri.subdomain != "":
-                dest += uri.subdomain + "."
-            dest += uri.domain
-            if uri.domain != "":
-                dest += "." + uri.suffix
-            dest += self.request.path
-            self.redirect(dest, permanent=False)
+        try:
+            page = await gen.with_timeout(time.time() + 0.1, getResponse(self))
+            print("page served")
+            self.write(page)
             return
+        except TimeoutError as error:
+            print("getResponse timed out error:", error)
+            raise tornado.web.HTTPError(status_code=503, log_message="request timed out")
 
-        for server in settings.args.servers:
-            requestedDomain = uri.domain + "." + uri.suffix
-            new, original = server.split("=") #handle if contains two == or zero =
-            if "localhost" in new:
-                newDomain = new + ":" + str(settings.args.port)
-                origDomain = original
-            elif requestedDomain == new:
-                newDomain = new
-                origDomain = original
+async def getResponse(self):
+    newDomain = ""
+    origDomain = ""
+    headers = {"User-Agent" : self.request.headers.get("User-Agent")}
+        
+    start = time.time()
+    statistics.countVisitor(self)
+    print("stats took", time.time() - start)
 
+    start = time.time()
+    reqURI = self.request.full_url()
+    uri = tldextract.extract(reqURI)
+
+    if settings.args.ssl == True and self.request.protocol == "http":
+        dest = "https://"
         if uri.subdomain != "":
-            url = "https://" + uri.subdomain + "." + origDomain + self.request.path
-        else:
-            url = "https://" + origDomain + self.request.path
+            dest += uri.subdomain + "."
+        dest += uri.domain
+        if uri.domain != "":
+            dest += "." + uri.suffix
+        dest += self.request.path
+        self.redirect(dest, permanent=False)
+        return
 
-        print("domain shits took", time.time() - start)
+    for server in settings.args.servers:
+        requestedDomain = uri.domain + "." + uri.suffix
+        new, original = server.split("=") #handle if contains two == or zero =
+        if "localhost" in new:
+            newDomain = new + ":" + str(settings.args.port)
+            origDomain = original
+        elif requestedDomain == new:
+            newDomain = new
+            origDomain = original
 
-        page = await get.getPage(url, origDomain, newDomain, headers)
-        print("page served")
-        self.write(page)
+    if uri.subdomain != "":
+        url = "https://" + uri.subdomain + "." + origDomain + self.request.path
+    else:
+        url = "https://" + origDomain + self.request.path
+
+    print("domain shits took", time.time() - start)
+
+    page = await get.getPage(url, origDomain, newDomain, headers)
+    return page
 
 def make_app():
     return tornado.web.Application([
