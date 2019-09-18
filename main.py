@@ -33,7 +33,7 @@ class AllHandler(tornado.web.RequestHandler):
     async def get(self):
         print("access")
         try:
-            page = await gen.with_timeout(time.time() + 0.1, getResponse(self))
+            page = await gen.with_timeout(time.time() + 30, getResponse(self))
             print("page served")
             self.write(page)
             return
