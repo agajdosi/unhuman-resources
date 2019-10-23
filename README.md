@@ -50,11 +50,15 @@ Bombard me with emails to accelarate the process.
 1. Installed python3 and pip3
 2. have port 8080 available (or use another available port)
 
+Alternatively:
+
+- use virtual environment `venv`, activate it with: `source ./venv/bin/activate` and then continue
+
 ### Local use
 
 1. install needed packages with pip3:
    ```
-    pip3 install tornado, requests, beautifulsoup4, tldextract, pysocks
+    pip3 install tornado, requests, beautifulsoup4, tldextract, pysocks, lxml
    ```
 2. run the application:
    1. to fake idnes.cz use: `python3 main.py -p 8080 -s localhost=idnes.cz -d True`
