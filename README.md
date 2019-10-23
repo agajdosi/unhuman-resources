@@ -62,7 +62,7 @@ Alternatively:
    ```
 2. run the application:
    1. to fake idnes.cz use: `python3 main.py -p 8080 -s localhost=idnes.cz -d True`
-   2. to fake lidovky.cz use: `python3 main.py -p 8080 -s localhost=idnes.cz -d True`
+   2. to fake lidovky.cz use: `python3 main.py -p 8080 -s localhost=lidovky.cz -d True`
 3. open browser and open address http://localhost:8080
    
 ### Problems
