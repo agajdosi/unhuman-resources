@@ -97,6 +97,9 @@ async def getPage(url, originalAddress, newAddress, headers):
     page = replaceANO(page)
     print("replacing ano took", time.time() - start)
     
+    # disable evil script
+    page = page.replace("//1gr.cz/js/uni/uni.js", "js/uni/uni.js")
+
     start = time.time()
     soup = BeautifulSoup(page, 'lxml')
     print("making soop took", time.time() - start)
