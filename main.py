@@ -87,7 +87,7 @@ async def getResponse(self):
 
 def make_app():
     return tornado.web.Application([
-        (r'/(robots\.txt|error\.jpg)', tornado.web.StaticFileHandler, {'path' : 'static'}),
+        (r'/(robots\.txt|error\.jpg|uni\.js)', tornado.web.StaticFileHandler, {'path' : 'static'}),
         (r".*", AllHandler),
     ],
     debug = settings.args.debug
