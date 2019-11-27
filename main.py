@@ -8,7 +8,6 @@ import time
 
 import get
 import settings
-import statistics
 
 newDomain = ""
 origDomain = ""
@@ -45,10 +44,6 @@ async def getResponse(self):
     newDomain = ""
     origDomain = ""
     headers = {"User-Agent" : self.request.headers.get("User-Agent")}
-        
-    start = time.time()
-    statistics.countVisitor(self)
-    print("stats took", time.time() - start)
 
     start = time.time()
     reqURI = self.request.full_url()
