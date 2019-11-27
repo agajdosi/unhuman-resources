@@ -58,7 +58,7 @@ Alternatively:
 
 1. install needed packages with pip3:
    ```
-    pip3 install tornado, requests, beautifulsoup4, tldextract, pysocks, lxml
+    pip3 install -r requirements.txt
    ```
 2. run the application:
    1. to fake idnes.cz use: `python3 main.py -p 8080 -s localhost=idnes.cz -d True`

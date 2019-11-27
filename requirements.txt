@@ -1,0 +1,5 @@
+tornado==6.0.3
+aiohttp==3.5.4
+tldextract==2.2.1
+beautifulsoup4==4.8.1
+lxml==4.4.2
