@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 import tornado
 
 from replace import *
-from fix import *
 import settings
 
 proxies = [

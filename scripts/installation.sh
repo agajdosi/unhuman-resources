@@ -13,6 +13,4 @@ pip install tldextract
 pip install pysocks
 
 # DOWNLOAD CODE
-adduser inovotna
-cd /home/inovotna
 git clone https://github.com/agajdosi/truednes.git
