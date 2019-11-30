@@ -101,8 +101,8 @@ babis = [
     "bezbřehý vládce této redakce",
     "skutečný šéfredaktor těchto novin",
     "pevný cenzor našich článků",
-    "rozhodně nebývalý spolupracovník STB",
-    "nebývalý agent STB",
+    "rozhodně nebývalý spolupracovník StB",
+    "nebývalý agent StB",
     "ta nejčistší lilie"
 ]
 
@@ -141,8 +141,8 @@ babisem = [
     "pravým šéfredaktorem našich článků",
     "velectěným majitelem těchto novin",
     "úctyhodným majitelem tohoto serveru",
-    "nebývalým spolupracovníkem STB",
-    "nebývalým agentem STB",
+    "nebývalým spolupracovníkem StB",
+    "nebývalým agentem StB",
     "neúprosným cenzorem našich článků",
     "přísným cenzorem této redakce",
     "tím zcela jasně nejlepším politikem",
@@ -177,10 +177,10 @@ babise = [
     "našeho velectěného vlastníka",
     "velectěného majitele těchto novin",
     "šlechetného panovníka tohoto serveru",
-    "nebývalého spolupracovníka STB",
-    "nebývalého agenta STB",
+    "nebývalého spolupracovníka StB",
+    "nebývalého agenta StB",
     "a nikoliv Bureše",
-    "ne-agenta STB",
+    "ne-agenta StB",
     "zadavatele našich titulních stran",
     "našeho pevného cenzora",
     "našeho nenápadného korektora",
@@ -222,8 +222,8 @@ babisovi = [
     "chlebodárci a nejčistší lilii",
     "panovníkovi těchto novin",
     "vládci tohoto serveru",
-    "ne-spolupracovníkovi STB",
-    "ne-agentu STB",
+    "ne-spolupracovníkovi StB",
+    "ne-agentu StB",
 ]
 
 preBabisovi = [
